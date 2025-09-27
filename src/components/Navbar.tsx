@@ -118,13 +118,15 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {/* Desktop utilities */}
             <div className="hidden md:flex items-center gap-2">
-              <button 
+              <button
+                title="Gallery"
                 className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                 aria-label="Gallery"
               >
                 <GalleryVertical className="h-5 w-5" />
               </button>
-              <button 
+              <button
+                title="Support"
                 className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                 aria-label="Support"
               >
@@ -132,7 +134,8 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z" />
                 </svg>
               </button>
-              <button 
+              <button
+                title="Notifications"
                 className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                 aria-label="Notifications"
               >
