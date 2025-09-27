@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon, Menu, X, Home, GalleryVertical, Video, Edit, PenTool, Brush, Type, Image as ImageIcon } from 'lucide-react';
 
-// Small list of nav items — keeps icons and routes in one place for easy updates
+// Navigation links data - keeping it organized and easy to modify
 const navLinks = [
   { name: 'Home', icon: Home, href: '/' },
   { name: 'Gallery', icon: GalleryVertical, href: '/gallery' },
@@ -16,11 +16,11 @@ const navLinks = [
   { name: 'Image', icon: ImageIcon, href: '/image' },
 ];
 
-// Toggle button for dark/light mode. Pulled out so the markup stays tidy.
+// Dark mode toggle component - extracted for reusability
 function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   
-  // Use resolvedTheme to avoid flashes while theme is resolving on hydrate
+  // Handle loading state and use resolvedTheme for more reliable theme detection
   const isDark = resolvedTheme === 'dark';
   
   const handleToggle = () => {
@@ -43,7 +43,7 @@ function ThemeToggle() {
   );
 }
 
-// Simple mobile menu; keep the DOM lightweight when it's closed
+// Mobile menu component - keeps the mobile logic separate
 function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   if (!isOpen) return null;
 
@@ -69,16 +69,16 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 }
 
-// Top navigation bar – logo, primary links, utilities and mobile menu
+// Main Navbar component
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Open/close the mobile dropdown
+  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Utility to close mobile menu (used on navigation and outside clicks)
+  // Close mobile menu when clicking outside or on a link
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };

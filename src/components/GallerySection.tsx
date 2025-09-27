@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import React from "react";
 
-// Partner gallery — shows brand logos in a neat, responsive grid.
-// TODO: swap these placeholder brands for actual partner assets and links before launch
-// A short list of common brand slugs; we shuffle them so the order looks fresh each load.
+// Gallery of partner logos/cards
+// TODO: Replace placeholder logos with real assets and proper links
+// A pool of popular company logos (Simple Icons slugs). We'll pick a randomized
+// order each mount so the gallery feels dynamic.
 const partners = [
   { slug: "github", name: "GitHub" },
   { slug: "google", name: "Google" },
@@ -25,8 +26,8 @@ const partners = [
 export default function GallerySection() {
   const { theme, resolvedTheme } = useTheme();
 
-  // Shuffle the brand list on first render so the gallery doesn't look static.
-  // Using Fisher–Yates for a fair shuffle.
+  // Shuffle partners to produce a random order on mount.
+  // This uses simple Fisher-Yates shuffle.
   const shuffled = React.useMemo(() => {
     const arr = [...partners];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -36,8 +37,10 @@ export default function GallerySection() {
     return arr;
   }, []);
 
-  // Build Simple Icons URLs — we rely on the official colored SVGs for authenticity.
-  // TODO: if any logo lacks contrast in dark mode, switch that brand to a monochrome fallback.
+  // Build icon URLs using the Simple Icons CDN. By not specifying a color we
+  // get the official brand color for each logo which looks more authentic.
+  // TODO: If any icon is hard to read in dark mode we can add a small
+  // background or switch to a monochrome variant per-brand.
   const logoUrls = React.useMemo(() => shuffled.map((p) => `https://cdn.simpleicons.org/${p.slug}`), [shuffled]);
 
   return (
@@ -77,9 +80,9 @@ export default function GallerySection() {
                     alt={p.name}
                     loading="lazy"
                     onError={(e) => {
-                      // If the colored SVG fails, try a monochrome fallback so the logo stays readable
+                      // Fallback to a monochrome variant if the colored icon fails to load
                       const hex = resolvedTheme === "dark" ? "ffffff" : "111827";
-                      // Prevent an infinite replacement loop by checking whether we've already switched to the monochrome URL
+                      // Avoid infinite loop: only replace if src doesn't already include the color
                       if (!e.currentTarget.src.includes(`/${hex}`)) {
                         e.currentTarget.src = `https://cdn.simpleicons.org/${p.slug}/${hex}`;
                       }
@@ -87,7 +90,7 @@ export default function GallerySection() {
                     className="object-contain max-h-12 sm:max-h-16 w-auto opacity-95 group-hover:opacity-100 transition-opacity duration-200"
                   />
                 </div>
-                // Show a small brand label below the logo so users can tell similar icons apart
+                {/* Visible label so users can see exactly which brand is rendered */}
                 <div className="mt-2 text-xs text-center text-gray-700 dark:text-gray-300">{p.name}</div>
               </article>
             );
