@@ -15,7 +15,7 @@ import {
   Wand2
 } from 'lucide-react';
 
-// Feature cards data - easily customizable and extensible
+// Feature cards: each entry controls its icon, colors and target route
 const generateFeatures = [
   {
     id: 1,
@@ -99,7 +99,7 @@ const generateFeatures = [
   }
 ];
 
-// Individual feature card component - keeps the card logic separate
+// Card component for a single generation tool — gradient, hover and focus styles live here
 function FeatureCard({ feature }: { feature: typeof generateFeatures[0] }) {
   const IconComponent = feature.icon;
   
@@ -108,12 +108,12 @@ function FeatureCard({ feature }: { feature: typeof generateFeatures[0] }) {
       href={feature.href}
       className={`group relative block p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${feature.bgColor} ${feature.borderColor}`}
     >
-      {/* Gradient background overlay on hover */}
+  {/* Subtle gradient overlay on hover to hint interactivity */}
       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
       
       {/* Card content */}
       <div className="relative z-10">
-        {/* Icon with gradient background */}
+  {/* Icon chip with a matching gradient background */}
         <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
           <IconComponent className="h-6 w-6 text-white" />
         </div>
@@ -126,7 +126,7 @@ function FeatureCard({ feature }: { feature: typeof generateFeatures[0] }) {
           {feature.description}
         </p>
         
-        {/* Open button - appears on hover */}
+  {/* 'Open' label fades in on hover — keeps the card clean by default */}
         <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <span className="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
             Open
@@ -137,13 +137,13 @@ function FeatureCard({ feature }: { feature: typeof generateFeatures[0] }) {
         </div>
       </div>
       
-      {/* Subtle glow effect on hover */}
+  {/* Soft glow behind the card on hover for depth */}
       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`} />
     </a>
   );
 }
 
-// Main Generate Section component
+// 'Generate' section — lists the main AI tools with responsive layout
 export default function GenerateSection() {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-gray-900/50">

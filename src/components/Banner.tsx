@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 
-// Carousel slide data - easy to modify and extend
+// Carousel slides — tweak these to change what's showcased in the hero
 const carouselSlides = [
   {
     id: 1,
@@ -29,7 +29,7 @@ const carouselSlides = [
   }
 ];
 
-// Carousel navigation component - keeps the logic separate
+// Small navigation group for the carousel (prev, indicators, next)
 function CarouselNavigation({ 
   currentSlide, 
   totalSlides, 
@@ -63,7 +63,7 @@ function CarouselNavigation({
                 : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
             }`}
             onClick={() => {
-              // TODO: Add direct slide navigation if needed
+              // TODO: consider adding direct slide jump when indicators are clicked
             }}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -82,7 +82,7 @@ function CarouselNavigation({
   );
 }
 
-// Individual carousel slide component
+// Single slide in the carousel; animates in/out via Framer Motion
 function CarouselSlide({ slide, isActive }: { slide: typeof carouselSlides[0]; isActive: boolean }) {
   return (
     <motion.div
@@ -101,7 +101,7 @@ function CarouselSlide({ slide, isActive }: { slide: typeof carouselSlides[0]; i
           className="w-full h-full object-cover"
           loading="lazy"
           onError={(e) => {
-            // Fallback to a placeholder if image fails to load
+            // Fallback: if the image breaks, swap to a Picsum placeholder so layout stays intact
             e.currentTarget.src = `https://picsum.photos/800/600?random=${slide.id}`;
           }}
         />
@@ -129,7 +129,7 @@ export default function Banner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Auto-play functionality - simple but effective
+  // Auto-play logic: advances slides every few seconds unless the user interacts
   useEffect(() => {
     if (!isAutoPlaying) return;
 
@@ -140,7 +140,7 @@ export default function Banner() {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
-  // Navigation handlers
+  // Handlers for previous/next slide (also stop autoplay when user interacts)
   const handlePrevious = () => {
     setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
     setIsAutoPlaying(false); // Stop auto-play when user interacts
@@ -151,7 +151,7 @@ export default function Banner() {
     setIsAutoPlaying(false); // Stop auto-play when user interacts
   };
 
-  // Resume auto-play after 10 seconds of inactivity
+  // Resume autoplay after a short inactivity period so we don't annoy users
   useEffect(() => {
     if (!isAutoPlaying) {
       const timer = setTimeout(() => {
