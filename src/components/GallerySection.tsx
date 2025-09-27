@@ -53,7 +53,7 @@ export default function GallerySection() {
           <h2 className="text-2xl font-semibold leading-tight text-gray-900 dark:text-gray-100">
             Our Partners
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 hidden sm:block">
+          <p className="text-sm text-gray-800 dark:text-gray-300 hidden sm:block">
             Collaborators driving creative AI.
           </p>
         </div>
@@ -88,9 +88,9 @@ export default function GallerySection() {
           })}
         </div>
 
-        <div className="mt-4 text-xs text-center text-gray-500 dark:text-gray-400">
+        <div className="mt-4 text-xs text-center text-gray-700 dark:text-gray-400">
           <span>Want your logo here? </span>
-          <a className="font-medium underline" href="#contact">
+          <a className="font-medium underline text-blue-600 dark:text-gray-200" href="#contact">
             Contact us
           </a>
         </div>
